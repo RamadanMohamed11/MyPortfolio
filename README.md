@@ -1,1 +1,7 @@
-#My_Portfolio
+# My Portfolio
+
+## Sections
+  Home
+  Skills
+  About
+  Contact
