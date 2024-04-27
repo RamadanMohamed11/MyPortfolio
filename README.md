@@ -1,2 +1,1 @@
-# Training
-Git &amp; GitHub Course
+#My Portfolio
