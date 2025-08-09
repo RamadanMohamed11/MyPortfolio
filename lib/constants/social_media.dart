@@ -5,7 +5,7 @@ List<Map> socialMediaLinks = [
   },
   {
     "path": "assets/images/whatsapp.png",
-    "URL": Uri.parse("https://wa.me/0201065728564")
+    "URL": Uri.parse("https://wa.me/201505599648")
   },
   {
     "path": "assets/images/telegram.png",
