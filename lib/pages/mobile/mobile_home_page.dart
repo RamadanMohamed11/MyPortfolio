@@ -275,7 +275,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                       SizedBox(height: 16.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 540.h,
+                        height: 650.h,
                         child: VisibilityDetector(
                           key: const Key('flutter-project-section'),
                           onVisibilityChanged: (VisibilityInfo info) async {
@@ -330,7 +330,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                               child: Container(
                                                 margin:
                                                     const EdgeInsets.all(15),
-                                                width: 180.w,
+                                                width: 210.w,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -342,7 +342,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Expanded(
-                                                      flex: 9,
+                                                      flex: 11,
                                                       child: Container(
                                                         height: 255.h,
                                                         decoration:
@@ -391,9 +391,8 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                       ),
                                                     ),
                                                     Expanded(
-                                                      flex: 3,
+                                                      flex: 5,
                                                       child: Container(
-                                                        height: 80.h,
                                                         padding: EdgeInsets.all(
                                                             4.0.sp),
                                                         child: Text(

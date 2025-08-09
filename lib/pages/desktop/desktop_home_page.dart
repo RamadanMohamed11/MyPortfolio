@@ -321,7 +321,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                       SizedBox(height: 16.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 580.h,
+                        height: 650.h,
                         child: VisibilityDetector(
                           key: const Key('flutter-project-section'),
                           onVisibilityChanged: (VisibilityInfo info) {
@@ -416,17 +416,20 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
-                                                      height: 130.h,
-                                                      padding: EdgeInsets.all(
-                                                          4.0.sp),
-                                                      child: Text(
-                                                        myProjects[i].subtitle,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.white70,
-                                                          fontSize: 6.1.sp,
+                                                    Expanded(
+                                                      child: Container(
+                                                        padding: EdgeInsets.all(
+                                                            4.0.sp),
+                                                        child: Text(
+                                                          myProjects[i]
+                                                              .subtitle,
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color:
+                                                                Colors.white70,
+                                                            fontSize: 6.1.sp,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
