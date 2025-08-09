@@ -8,6 +8,20 @@ final List<Project> myProjects = [
       gitHubLink: "https://github.com/RamadanMohamed11/MyPortfolio",
       subtitle: "A personal portfolio showcasing my projects and skills."),
   Project(
+      title: "Student Attendance App",
+      img: "assets/images/projects/Student_Attendance.jpg",
+      applicationLink: "",
+      gitHubLink: "https://github.com/RamadanMohamed11/Student-Attendance-V1.1",
+      subtitle:
+          "This cross-platform app streamlines attendance tracking for students and teachers, offering a modern, efficient, and user-friendly experience."),
+  Project(
+      title: "Notes App",
+      img: "assets/images/projects/Notes.jpg",
+      applicationLink: "",
+      gitHubLink: "https://github.com/RamadanMohamed11/Notes-App",
+      subtitle:
+          "allows users to create, edit, search, and delete notes with a simple interface using Hive and Bloc."),
+  Project(
       title: "Slogan",
       img: "assets/images/projects/Slogan.jpg",
       applicationLink: "",
@@ -45,4 +59,11 @@ final List<Project> myProjects = [
       applicationLink: "",
       gitHubLink: "https://github.com/RamadanMohamed11/Calculator-App",
       subtitle: "Calculator with more than one design in one application."),
+  Project(
+      title: "Meal App",
+      img: "assets/images/projects/Meal.jpg",
+      applicationLink: "",
+      gitHubLink: "https://github.com/RamadanMohamed11/Meal-App",
+      subtitle:
+          "A modern Flutter application that allows users to browse, filter, and favorite meals with a beautiful and responsive UI."),
 ];
