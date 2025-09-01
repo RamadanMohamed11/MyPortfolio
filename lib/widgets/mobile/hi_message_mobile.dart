@@ -74,6 +74,6 @@ class HiMessageMobile extends StatelessWidget {
   }
 
   void downloadMyCvOnPressed() {
-    url_launcher.launch('assets/Ramadan_Mohamed_Flutter Developer_resume.pdf');
+    url_launcher.launch('assets/Ramadan_Mohamed_CV.pdf');
   }
 }
