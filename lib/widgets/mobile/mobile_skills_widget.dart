@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
@@ -61,9 +60,13 @@ class MobileSkillsWidget extends StatelessWidget {
                                     width: 28.5.w,
                                     height: 47.h,
                                   ),
-                                  title: Text(
-                                    mySkills[i]["title"],
-                                    style: TextStyle(fontSize: 13.sp),
+                                  title: FittedBox(
+                                    alignment: Alignment.centerLeft,
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      mySkills[i]["title"],
+                                      style: TextStyle(fontSize: 13.sp),
+                                    ),
                                   ),
                                 ),
                               ),

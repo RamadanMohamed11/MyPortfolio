@@ -56,9 +56,13 @@ class DesktopSkillsWidget extends StatelessWidget {
                               width: 25.w,
                               height: 40.h,
                             ),
-                            title: Text(
-                              mySkills[i]["title"],
-                              style: TextStyle(fontSize: 5.7.sp),
+                            title: FittedBox(
+                              alignment: Alignment.centerLeft,
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                mySkills[i]["title"],
+                                style: TextStyle(fontSize: 5.7.sp),
+                              ),
                             ),
                           ),
                         ),
