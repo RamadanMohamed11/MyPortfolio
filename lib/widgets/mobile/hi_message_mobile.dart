@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
+import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
+import 'package:my_portfolio/widgets/custom_elevated_button.dart';
 
 class HiMessageMobile extends StatelessWidget {
   const HiMessageMobile({super.key, required this.onNavMenuTap});
   final Function(int) onNavMenuTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,27 +45,35 @@ class HiMessageMobile extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Text(
-              "A Computer Engineer & A Flutter Developer",
+              "Flutter Developer & Embedded Systems Engineer",
               style: TextStyle(fontSize: 19.sp, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 25.h),
           Center(
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(170.w, 50.h),
-                    backgroundColor: CustomColor.myYellow),
-                onPressed: () {
-                  onNavMenuTap(0);
-                },
-                child: Text(
-                  "Get In Touch",
-                  style: TextStyle(color: Colors.white, fontSize: 17.sp),
-                )),
+            child: CustomElevatedButton(
+                onPressed: getInTouchOnPressed,
+                title: "Get In Touch",
+                isMobile: true),
+          ),
+          SizedBox(height: 15.h),
+          Center(
+            child: CustomElevatedButton(
+                onPressed: downloadMyCvOnPressed,
+                title: "Download My CV",
+                isMobile: true),
           ),
           SizedBox(height: 15.h),
         ],
       ),
     );
+  }
+
+  void getInTouchOnPressed() {
+    onNavMenuTap(0);
+  }
+
+  void downloadMyCvOnPressed() {
+    url_launcher.launch('assets/Ramadan_Mohamed_Flutter Developer_resume.pdf');
   }
 }

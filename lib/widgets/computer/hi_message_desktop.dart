@@ -2,6 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
+import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
+import 'package:my_portfolio/widgets/custom_elevated_button.dart';
 
 class HiMessageDesktop extends StatelessWidget {
   final Function(int) onNavMenuTap;
@@ -52,18 +54,22 @@ class HiMessageDesktop extends StatelessWidget {
                   ],
                   isRepeatingAnimation: false,
                 ),
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                        "A Computer Engineer & A Flutter Developer",
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 7.2.sp,
-                        ),
-                        cursor: "|",
-                        speed: const Duration(milliseconds: 100)),
-                  ],
-                  isRepeatingAnimation: false,
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                          "Flutter Developer & Embedded Systems Engineer",
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 7.2.sp,
+                          ),
+                          cursor: "|",
+                          speed: const Duration(milliseconds: 100)),
+                    ],
+                    isRepeatingAnimation: false,
+                  ),
                 ),
                 // Text(
                 //   "I'm Ramadan Mohamed",
@@ -80,24 +86,36 @@ class HiMessageDesktop extends StatelessWidget {
                 //   ),
                 // ),
                 SizedBox(height: 8.h),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(60.w, 55.h),
-                      backgroundColor: CustomColor.myYellow),
-                  onPressed: () {
-                    onNavMenuTap(0);
-                  },
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText("Get In Touch",
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 6.5.sp),
-                          cursor: "|",
-                          speed: const Duration(milliseconds: 250)),
-                    ],
-                    isRepeatingAnimation: false,
-                  ),
-                ),
+                Row(
+                  children: [
+                    CustomElevatedButton(
+                        onPressed: getInTouchOnPressed,
+                        title: "Get In Touch",
+                        isMobile: false),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //       minimumSize: Size(60.w, 55.h),
+                    //       backgroundColor: CustomColor.myYellow),
+                    //   onPressed: getInTouchOnPressed,
+                    //   child: AnimatedTextKit(
+                    //     animatedTexts: [
+                    //       TypewriterAnimatedText("Get In Touch",
+                    //           textStyle: TextStyle(
+                    //               color: Colors.white, fontSize: 6.5.sp),
+                    //           cursor: "|",
+                    //           speed: const Duration(milliseconds: 250)),
+                    //     ],
+                    //     isRepeatingAnimation: false,
+                    //   ),
+                    // ),
+                    const Spacer(),
+                    CustomElevatedButton(
+                      title: "Download My CV",
+                      onPressed: downloadMyCvOnPressed,
+                      isMobile: false,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -117,5 +135,13 @@ class HiMessageDesktop extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void getInTouchOnPressed() {
+    onNavMenuTap(0);
+  }
+
+  void downloadMyCvOnPressed() {
+    url_launcher.launch('assets/Ramadan_Mohamed_Flutter Developer_resume.pdf');
   }
 }
