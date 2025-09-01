@@ -398,6 +398,8 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                                                 .circular(16),
                                                         child: Image.asset(
                                                           myProjects[i].img,
+                                                          width: double.infinity,
+                                                          height: double.infinity,
                                                           fit: BoxFit.cover,
                                                           frameBuilder:
                                                               (BuildContext

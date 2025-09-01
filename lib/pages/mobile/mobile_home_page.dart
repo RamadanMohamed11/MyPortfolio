@@ -19,6 +19,7 @@ import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MobileHomePage extends StatefulWidget {
   const MobileHomePage({super.key});
@@ -343,30 +344,51 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                   children: [
                                                     Expanded(
                                                       flex: 11,
-                                                      child: Container(
-                                                        height: 255.h,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image:
-                                                                      AssetImage(
-                                                                    myProjects[
-                                                                            i]
-                                                                        .img,
-                                                                  ),
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            16)),
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width /
-                                                                1.7,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                        child: Image.asset(
+                                                          myProjects[i].img,
+                                                          width: double.infinity,
+                                                          height: double.infinity,
+                                                          fit: BoxFit.cover,
+                                                          frameBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  Widget child,
+                                                                  int? frame,
+                                                                  bool
+                                                                      wasSynchronouslyLoaded) {
+                                                            if (wasSynchronouslyLoaded) {
+                                                              return child;
+                                                            }
+                                                            return AnimatedSwitcher(
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          300),
+                                                              child: frame ==
+                                                                      null
+                                                                  ? Shimmer
+                                                                      .fromColors(
+                                                                      baseColor:
+                                                                          CustomColor
+                                                                              .bgLighter2,
+                                                                      highlightColor: Colors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0.5),
+                                                                      child:
+                                                                          Container(
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    )
+                                                                  : child,
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                     const Spacer(
