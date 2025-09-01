@@ -45,17 +45,21 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
           TextButton(
               onPressed: () {
                 widget.onNavMenuTap(i);
-                setState(() {
-                  numberOfText = i;
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  setState(() {
+                    numberOfText = i;
+                  });
                 });
               },
-              child: Text(
-                headerItems[i],
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
                 style: TextStyle(
                     color: i == numberOfText ? textColor : Colors.white,
                     fontSize: i == numberOfText ? 6.5.sp : 5.2.sp,
                     fontWeight:
                         i == numberOfText ? FontWeight.bold : FontWeight.w100),
+                child: Text(headerItems[i]),
               )),
       ]),
     );

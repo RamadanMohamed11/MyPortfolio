@@ -24,12 +24,6 @@ class ExpInfoDesktop extends StatelessWidget {
                 "1+",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.sp),
               ),
-              /*
-              FadeAnimatedText("1+",
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 7.sp))
-              
-               */
               AnimatedTextKit(
                 animatedTexts: [
                   TypewriterAnimatedText(
@@ -42,39 +36,6 @@ class ExpInfoDesktop extends StatelessWidget {
                 ],
                 isRepeatingAnimation: false,
               ),
-            ],
-          ),
-          VerticalDivider(
-            color: CustomColor.bgLighter2,
-            thickness: 0.6.w,
-            indent: 30.h,
-            endIndent: 30.h,
-            width: 0.6.w,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "1+",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.sp),
-              ),
-              AnimatedTextKit(
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    "Years Experinced In Embedded system",
-                    textStyle:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 6.sp),
-                    speed: const Duration(milliseconds: 150),
-                    cursor: "|",
-                  ),
-                ],
-                isRepeatingAnimation: false,
-              ),
-              // Text(
-              //   "Years Experinced In Embedded system",
-              //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 6.sp),
-              // ),
             ],
           ),
           VerticalDivider(
@@ -104,43 +65,6 @@ class ExpInfoDesktop extends StatelessWidget {
                 ],
                 isRepeatingAnimation: false,
               ),
-              // Text(
-              //   "Flutter Projects",
-              //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 6.sp),
-              // ),
-            ],
-          ),
-          VerticalDivider(
-            color: CustomColor.bgLighter2,
-            thickness: 0.6.w,
-            indent: 30.h,
-            endIndent: 30.h,
-            width: 0.6.w,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "10+",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.sp),
-              ),
-              AnimatedTextKit(
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    "Embedded Projects",
-                    textStyle:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 6.sp),
-                    speed: const Duration(milliseconds: 150),
-                    cursor: "|",
-                  ),
-                ],
-                isRepeatingAnimation: false,
-              ),
-              // Text(
-              //   "Embedded Projects",
-              //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 6.sp),
-              // ),
             ],
           ),
         ],

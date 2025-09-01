@@ -10,6 +10,9 @@ class ExpInfoMobile extends StatelessWidget {
     return IntrinsicHeight(
       child: Row(
         children: [
+          SizedBox(
+            width: 5.w,
+          ),
           Expanded(
             child: Container(
               padding: EdgeInsets.all(7.sp),
@@ -18,41 +21,22 @@ class ExpInfoMobile extends StatelessWidget {
                   color: CustomColor.profileColor,
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "1+",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.sp),
-                      ),
-                      Text(
-                        "Years Experinced In Flutter",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 13.5.sp),
-                      ),
-                    ],
+                  Text(
+                    "1+",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
                   ),
-                  SizedBox(
-                    height: 35.h,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Years Experinced In Flutter",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 13.5.sp),
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "1+",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.sp),
-                      ),
-                      Text(
-                        "Years Experinced In Embedded system",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 13.5.sp),
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),
@@ -67,42 +51,28 @@ class ExpInfoMobile extends StatelessWidget {
                   color: CustomColor.profileColor,
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "10+",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.sp),
-                      ),
-                      Text(
-                        "Flutter Projects",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 13.5.sp),
-                      ),
-                    ],
+                  Text(
+                    "10+",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
                   ),
-                  SizedBox(height: 35.h),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "10+",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.sp),
-                      ),
-                      Text(
-                        "Embedded Projects",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 13.5.sp),
-                      ),
-                    ],
-                  )
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Flutter Projects",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 13.5.sp),
+                    ),
+                  ),
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            width: 5.w,
           ),
         ],
       ),
