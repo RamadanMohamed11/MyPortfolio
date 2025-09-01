@@ -14,6 +14,7 @@ import 'package:my_portfolio/widgets/computer/header_desktop.dart';
 import 'package:my_portfolio/widgets/computer/hi_message_desktop.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ComputerHomePage extends StatefulWidget {
   const ComputerHomePage({super.key});
@@ -384,24 +385,57 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Container(
+                                                    SizedBox(
                                                       height: 280.h,
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          image: AssetImage(
-                                                              myProjects[i]
-                                                                  .img),
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16),
-                                                      ),
                                                       width:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width /
                                                               2,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                        child: Image.asset(
+                                                          myProjects[i].img,
+                                                          fit: BoxFit.cover,
+                                                          frameBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  Widget child,
+                                                                  int? frame,
+                                                                  bool
+                                                                      wasSynchronouslyLoaded) {
+                                                            if (wasSynchronouslyLoaded) {
+                                                              return child;
+                                                            }
+                                                            return AnimatedSwitcher(
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          300),
+                                                              child: frame ==
+                                                                      null
+                                                                  ? Shimmer
+                                                                      .fromColors(
+                                                                      baseColor:
+                                                                          CustomColor
+                                                                              .bgLighter2,
+                                                                      highlightColor: Colors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0.5),
+                                                                      child:
+                                                                          Container(
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    )
+                                                                  : child,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
                                                     ),
                                                     Padding(
                                                       padding: EdgeInsets.all(
