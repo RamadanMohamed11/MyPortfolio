@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
 import 'package:my_portfolio/widgets/custom_elevated_button.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HiMessageMobile extends StatelessWidget {
   const HiMessageMobile({super.key, required this.onNavMenuTap});
@@ -26,13 +27,17 @@ class HiMessageMobile extends StatelessWidget {
           SizedBox(height: 25.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Text(
-              "Hi,",
-              style: TextStyle(
-                  fontSize: 20.5.sp,
-                  color: CustomColor.myYellow,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Caveat"),
+            child: Shimmer.fromColors(
+              baseColor: CustomColor.myYellow,
+              highlightColor: Colors.white,
+              child: Text(
+                "Hi,",
+                style: TextStyle(
+                    fontSize: 20.5.sp,
+                    color: CustomColor.myYellow,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Caveat"),
+              ),
             ),
           ),
           Padding(
