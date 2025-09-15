@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/pages/desktop/desktop_home_page.dart';
 import 'package:my_portfolio/test.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DesktopSecondScreen extends StatefulWidget {
   const DesktopSecondScreen({super.key});
@@ -55,13 +56,21 @@ class _DesktopSecondScreenState extends State<DesktopSecondScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Welcome ",
-                  style: TextStyle(
-                      color: CustomColor.myYellow,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.sp,
-                      fontFamily: "Caveat"),
+                Shimmer.fromColors(
+                  baseColor: CustomColor.myYellow,
+                  highlightColor: Colors.white,
+                  period: const Duration(milliseconds: 1000),
+                  child: Hero(
+                    tag: 'welcome',
+                    child: Text(
+                      "Welcome ",
+                      style: TextStyle(
+                          color: CustomColor.myYellow,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
+                          fontFamily: "Caveat"),
+                    ),
+                  ),
                 ),
                 Text(
                   'To My Portfolio',
@@ -70,7 +79,7 @@ class _DesktopSecondScreenState extends State<DesktopSecondScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20.sp,
                       fontFamily: "Caveat"),
-                ),
+                )
               ],
             ),
           ),

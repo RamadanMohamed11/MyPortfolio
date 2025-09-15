@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
 import 'package:my_portfolio/widgets/custom_elevated_button.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HiMessageDesktop extends StatelessWidget {
   final Function(int) onNavMenuTap;
@@ -20,18 +21,22 @@ class HiMessageDesktop extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TypewriterAnimatedText("Hi,",
-                        textStyle: TextStyle(
-                            fontSize: 8.sp,
-                            color: CustomColor.myYellow,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Caveat"),
-                        cursor: "|",
-                        speed: const Duration(milliseconds: 250)),
-                  ],
-                  isRepeatingAnimation: false,
+                Shimmer.fromColors(
+                  baseColor: CustomColor.myYellow,
+                  highlightColor: Colors.white,
+                  period: const Duration(milliseconds: 1500),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText("Hi,",
+                          textStyle: TextStyle(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Caveat"),
+                          cursor: "|",
+                          speed: const Duration(milliseconds: 250)),
+                    ],
+                    isRepeatingAnimation: false,
+                  ),
                 ),
                 // Text(
                 //   "Hi,",

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/pages/mobile/mobile_home_page.dart';
 import 'package:my_portfolio/test.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MobileSecondScreen extends StatefulWidget {
   const MobileSecondScreen({super.key});
@@ -55,13 +56,18 @@ class _MobileSecondScreenState extends State<MobileSecondScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Welcome ",
-                  style: TextStyle(
-                      color: CustomColor.myYellow,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 27.sp,
-                      fontFamily: "Caveat"),
+                Shimmer.fromColors(
+                  baseColor: CustomColor.myYellow,
+                  highlightColor: Colors.white,
+                  period: const Duration(milliseconds: 1000),
+                  child: Text(
+                    "Welcome ",
+                    style: TextStyle(
+                        color: CustomColor.myYellow,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 27.sp,
+                        fontFamily: "Caveat"),
+                  ),
                 ),
                 Text(
                   'To My Portfolio',

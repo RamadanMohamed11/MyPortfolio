@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/constants/header_list_items.dart';
 import 'package:my_portfolio/widgets/welcome_message.dart';
+import 'package:shimmer/shimmer.dart';
 
 int numberOfText = 4;
 
@@ -51,15 +52,21 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
                   });
                 });
               },
-              child: AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-                style: TextStyle(
-                    color: i == numberOfText ? textColor : Colors.white,
-                    fontSize: i == numberOfText ? 6.5.sp : 5.2.sp,
-                    fontWeight:
-                        i == numberOfText ? FontWeight.bold : FontWeight.w100),
-                child: Text(headerItems[i]),
+              child: Shimmer.fromColors(
+                baseColor: i == numberOfText ? textColor : Colors.white,
+                highlightColor: Colors.grey.shade400,
+                period: const Duration(milliseconds: 1500),
+                enabled: i == numberOfText,
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                  style: TextStyle(
+                      fontSize: i == numberOfText ? 6.5.sp : 5.2.sp,
+                      fontWeight: i == numberOfText
+                          ? FontWeight.bold
+                          : FontWeight.w100),
+                  child: Text(headerItems[i]),
+                ),
               )),
       ]),
     );
