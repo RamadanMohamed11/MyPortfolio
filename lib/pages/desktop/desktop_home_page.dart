@@ -12,6 +12,7 @@ import 'package:my_portfolio/widgets/computer/desktop_skills_widget.dart';
 import 'package:my_portfolio/widgets/computer/exp_info_desktop.dart';
 import 'package:my_portfolio/widgets/computer/header_desktop.dart';
 import 'package:my_portfolio/widgets/computer/hi_message_desktop.dart';
+import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:shimmer/shimmer.dart';
@@ -300,18 +301,22 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Column(
-              key: navBarKeys[2],
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10.w),
-                  padding: EdgeInsets.symmetric(vertical: 5.h),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: CustomColor.bgLighter1,
-                  ),
-                  child: Column(
+            child: ScrollAnimatedWidget(
+              visibilityKey: 'projects-desktop-section',
+              duration: const Duration(milliseconds: 800),
+              slideOffset: 70,
+              child: Column(
+                key: navBarKeys[2],
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10.w),
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: CustomColor.bgLighter1,
+                    ),
+                    child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
@@ -735,6 +740,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                 // ),
               ],
             ),
+            ),
           ),
           SliverToBoxAdapter(
             child: VisibilityDetector(
@@ -769,22 +775,26 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
             // Contact and Social Media links
           ),
           SliverToBoxAdapter(
-            child: VisibilityDetector(
-              key: const Key("contact-section"),
-              onVisibilityChanged: (VisibilityInfo info) async {
-                if (info.visibleFraction > 0.5) {
-                  await Future.delayed(
-                    const Duration(milliseconds: 800),
-                    () {},
-                  );
+            child: ScrollAnimatedWidget(
+              visibilityKey: 'contact-desktop-section',
+              duration: const Duration(milliseconds: 900),
+              slideOffset: 80,
+              child: VisibilityDetector(
+                key: const Key("contact-section"),
+                onVisibilityChanged: (VisibilityInfo info) async {
                   if (info.visibleFraction > 0.5) {
-                    setState(() {
-                      numberOfText = 0;
-                    });
+                    await Future.delayed(
+                      const Duration(milliseconds: 800),
+                      () {},
+                    );
+                    if (info.visibleFraction > 0.5) {
+                      setState(() {
+                        numberOfText = 0;
+                      });
+                    }
                   }
-                }
-              },
-              child: Column(
+                },
+                child: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -868,6 +878,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                   )
                 ],
               ),
+            ),
             ),
           )
         ],

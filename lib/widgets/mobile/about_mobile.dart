@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
+import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
 
 class AboutMobile extends StatelessWidget {
   const AboutMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3.w),
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: CustomColor.bgLighter1),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+    return ScrollAnimatedWidget(
+      visibilityKey: 'about-mobile-section',
+      duration: const Duration(milliseconds: 800),
+      slideOffset: 80,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 3.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: CustomColor.bgLighter1),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
           Text(
             "About Me",
             textAlign: TextAlign.start,
@@ -44,7 +49,8 @@ class AboutMobile extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-        ],
+          ],
+        ),
       ),
     );
   }

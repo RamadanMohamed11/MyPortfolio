@@ -15,6 +15,7 @@ import 'package:my_portfolio/widgets/mobile/header_mobile.dart';
 import 'package:my_portfolio/widgets/mobile/hi_message_mobile.dart';
 import 'package:my_portfolio/widgets/mobile/mobile_skills_widget.dart';
 import 'package:my_portfolio/widgets/oval_right_border_clipper.dart';
+import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -252,22 +253,26 @@ class _MobileHomePageState extends State<MobileHomePage> {
           ),
           MobileSkillsWidget(navBarKeys: navBarKeys, screenSize: screenSize),
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50.h,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 2.w),
-                  padding: EdgeInsets.symmetric(vertical: 5.h),
-                  key: navBarKeys[2],
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: CustomColor.bgLighter1),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+            child: ScrollAnimatedWidget(
+              visibilityKey: 'projects-mobile-section',
+              duration: const Duration(milliseconds: 800),
+              slideOffset: 70,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2.w),
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    key: navBarKeys[2],
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: CustomColor.bgLighter1),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                       Text(
                         "My Flutter Projects",
                         style: TextStyle(
@@ -507,6 +512,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                 ),
               ],
             ),
+            ),
           ),
           // SliverToBoxAdapter(
           //   child: Column(
@@ -647,20 +653,24 @@ class _MobileHomePageState extends State<MobileHomePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                // Contact and Social Media links
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  key: navBarKeys.first,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                      color: Color.fromARGB(255, 173, 49, 49)),
-                  child: Column(
-                    children: [
+            child: ScrollAnimatedWidget(
+              visibilityKey: 'contact-mobile-section',
+              duration: const Duration(milliseconds: 900),
+              slideOffset: 80,
+              child: Column(
+                children: [
+                  // Contact and Social Media links
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    key: navBarKeys.first,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                        color: Color.fromARGB(255, 173, 49, 49)),
+                    child: Column(
+                      children: [
                       Text(
                         "Contact and Social Media Links",
                         style: TextStyle(
@@ -1056,6 +1066,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                   ),
                 ),
               ],
+            ),
             ),
           )
         ],
