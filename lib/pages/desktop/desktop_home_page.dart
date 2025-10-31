@@ -13,6 +13,7 @@ import 'package:my_portfolio/widgets/computer/exp_info_desktop.dart';
 import 'package:my_portfolio/widgets/computer/header_desktop.dart';
 import 'package:my_portfolio/widgets/computer/hi_message_desktop.dart';
 import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
+import 'package:my_portfolio/widgets/hover_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:shimmer/shimmer.dart';
@@ -374,19 +375,21 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                               curve:
                                                   Curves.fastLinearToSlowEaseIn,
                                               flipAxis: FlipAxis.x,
-                                              child: Container(
-                                                margin:
-                                                    const EdgeInsets.all(15),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.5,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  color: CustomColor.bgLighter2,
-                                                ),
-                                                child: Column(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15),
+                                                child: HoverCard(
+                                                  hoverScale: 1.03,
+                                                  child: Container(
+                                                    width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        3.5,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(16),
+                                                      color: CustomColor.bgLighter2,
+                                                    ),
+                                                    child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -547,7 +550,9 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
+                                                    ],
+                                                  ),
+                                                ),
                                                 ),
                                               ),
                                             ),

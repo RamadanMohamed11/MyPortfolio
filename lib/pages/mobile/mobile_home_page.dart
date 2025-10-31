@@ -16,6 +16,7 @@ import 'package:my_portfolio/widgets/mobile/hi_message_mobile.dart';
 import 'package:my_portfolio/widgets/mobile/mobile_skills_widget.dart';
 import 'package:my_portfolio/widgets/oval_right_border_clipper.dart';
 import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
+import 'package:my_portfolio/widgets/hover_card.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -333,17 +334,19 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                               curve:
                                                   Curves.fastLinearToSlowEaseIn,
                                               flipAxis: FlipAxis.x,
-                                              child: Container(
-                                                margin:
-                                                    const EdgeInsets.all(15),
-                                                width: 210.w,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    color:
-                                                        CustomColor.bgLighter2),
-                                                child: Column(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15),
+                                                child: HoverCard(
+                                                  hoverScale: 1.03,
+                                                  child: Container(
+                                                    width: 210.w,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                16),
+                                                        color:
+                                                            CustomColor.bgLighter2),
+                                                    child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -494,7 +497,9 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                     const Spacer(
                                                       flex: 1,
                                                     ),
-                                                  ],
+                                                    ],
+                                                  ),
+                                                ),
                                                 ),
                                               ),
                                             ),
