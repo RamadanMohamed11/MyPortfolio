@@ -4,6 +4,7 @@ import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/constants/header_list_items.dart';
 import 'package:my_portfolio/widgets/welcome_message.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
 
 int numberOfText = 4;
 
@@ -40,6 +41,26 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
       child: Row(children: [
         const WelcomeMessage(
           isDesktop: true,
+        ),
+        SizedBox(width: 12.w),
+        InkWell(
+          onTap: () {
+            url_launcher.launch(
+                'http://ramadan-mohamed-electrical-portfolio.netlify.app');
+          },
+          child: Shimmer.fromColors(
+            baseColor: CustomColor.myYellow,
+            highlightColor: Colors.white,
+            period: const Duration(milliseconds: 1500),
+            child: Text(
+              'Embedded System Portfolio',
+              style: TextStyle(
+                  color: CustomColor.myYellow,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 8.sp,
+                  fontFamily: 'Caveat'),
+            ),
+          ),
         ),
         const Spacer(),
         for (int i = 0; i < headerItems.length; i++)

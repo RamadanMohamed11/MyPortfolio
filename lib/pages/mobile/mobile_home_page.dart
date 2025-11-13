@@ -1,4 +1,3 @@
-import 'package:email_sender/email_sender.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -17,6 +16,7 @@ import 'package:my_portfolio/widgets/mobile/mobile_skills_widget.dart';
 import 'package:my_portfolio/widgets/oval_right_border_clipper.dart';
 import 'package:my_portfolio/widgets/scroll_animated_widget.dart';
 import 'package:my_portfolio/widgets/hover_card.dart';
+import 'package:my_portfolio/pages/mobile/project_detail_page_mobile.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -136,12 +136,25 @@ class _MobileHomePageState extends State<MobileHomePage> {
         setState(() {
           isLoading = true;
         });
-        EmailSender emailsender = EmailSender();
-        await emailsender.sendMessage(
-            "ramadan.work010@gmail.com",
-            emailController.text,
-            "Message From Portfolio By ${nameController.text}",
-            messageController.text);
+        final subject =
+            "Message From Portfolio By ${nameController.text}";
+        final body =
+            "From: ${emailController.text}\n\n${messageController.text}";
+        final mailUri = Uri(
+          scheme: 'mailto',
+          path: 'ramadan.work010@gmail.com',
+          queryParameters: {
+            'subject': subject,
+            'body': body,
+          },
+        );
+        final launched = await launchUrl(
+          mailUri,
+          mode: LaunchMode.externalApplication,
+        );
+        if (!launched) {
+          throw 'Could not open the email app';
+        }
         setState(() {
           isLoading = false;
         });
@@ -336,20 +349,37 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                               flipAxis: FlipAxis.x,
                                               child: Padding(
                                                 padding: const EdgeInsets.all(15),
-                                                child: HoverCard(
-                                                  hoverScale: 1.03,
-                                                  child: Container(
-                                                    width: 210.w,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                16),
-                                                        color:
-                                                            CustomColor.bgLighter2),
-                                                    child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProjectDetailPageMobile(
+                                                          project: myProjects[i],
+                                                        ),
+                                                      ),
+                                                    ).then((_) {
+                                                      if (!mounted) return;
+                                                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                        onNavItemTap(2);
+                                                      });
+                                                    });
+                                                  },
+                                                  child: HoverCard(
+                                                    hoverScale: 1.03,
+                                                    child: Container(
+                                                      width: 210.w,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  16),
+                                                          color:
+                                                              CustomColor.bgLighter2),
+                                                      child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
                                                     Expanded(
                                                       flex: 11,
                                                       child: ClipRRect(
@@ -497,15 +527,16 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                     const Spacer(
                                                       flex: 1,
                                                     ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                                     ),
                                   )
                                 : const SizedBox.shrink(),
