@@ -1,12 +1,19 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:my_portfolio/pages/desktop/desktop_second_screen.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/pages/mobile/mobile_second_screen.dart';
+import 'package:my_portfolio/providers/portfolio_provider.dart';
 
 void main() {
-  runApp(const MyPortfolio());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => PortfolioProvider(),
+      child: const MyPortfolio(),
+    ),
+  );
 }
 
 class MyPortfolio extends StatefulWidget {

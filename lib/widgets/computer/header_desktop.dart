@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/constants/header_list_items.dart';
+import 'package:my_portfolio/providers/portfolio_provider.dart';
 import 'package:my_portfolio/widgets/welcome_message.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher;
-
-int numberOfText = 4;
 
 class HeaderDesktop extends StatefulWidget {
   final Function(int) onNavMenuTap;
@@ -23,11 +23,12 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<PortfolioProvider>();
+
     if (widget.isloaded) {
-      setState(() {
-        numberOfText = 4;
-      });
+      provider.setNavIndex(4);
     }
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.all(0.5.sp),
@@ -68,22 +69,20 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
               onPressed: () {
                 widget.onNavMenuTap(i);
                 Future.delayed(const Duration(milliseconds: 100), () {
-                  setState(() {
-                    numberOfText = i;
-                  });
+                  provider.setNavIndex(i);
                 });
               },
               child: Shimmer.fromColors(
-                baseColor: i == numberOfText ? textColor : Colors.white,
+                baseColor: i == provider.navIndex ? textColor : Colors.white,
                 highlightColor: Colors.grey.shade400,
                 period: const Duration(milliseconds: 1500),
-                enabled: i == numberOfText,
+                enabled: i == provider.navIndex,
                 child: AnimatedDefaultTextStyle(
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut,
                   style: TextStyle(
-                      fontSize: i == numberOfText ? 6.5.sp : 5.2.sp,
-                      fontWeight: i == numberOfText
+                      fontSize: i == provider.navIndex ? 6.5.sp : 5.2.sp,
+                      fontWeight: i == provider.navIndex
                           ? FontWeight.bold
                           : FontWeight.w100),
                   child: Text(headerItems[i]),

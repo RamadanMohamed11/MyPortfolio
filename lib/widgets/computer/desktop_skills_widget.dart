@@ -69,7 +69,7 @@ class _DesktopSkillsWidgetState extends State<DesktopSkillsWidget> {
                                 child: ListTile(
                                   isThreeLine: false,
                                   leading: Image.asset(
-                                    mySkills[i]["img"],
+                                    mySkills[i].img,
                                     //fit: BoxFit.cover,
                                     width: 25.w,
                                     height: 40.h,
@@ -78,7 +78,7 @@ class _DesktopSkillsWidgetState extends State<DesktopSkillsWidget> {
                                     alignment: Alignment.centerLeft,
                                     fit: BoxFit.scaleDown,
                                     child: Text(
-                                      mySkills[i]["title"],
+                                      mySkills[i].title,
                                       style: TextStyle(fontSize: 5.7.sp),
                                     ),
                                   ),

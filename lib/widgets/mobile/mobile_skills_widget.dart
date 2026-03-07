@@ -60,7 +60,7 @@ class MobileSkillsWidget extends StatelessWidget {
                                   child: ListTile(
                                     isThreeLine: false,
                                     leading: Image.asset(
-                                      mySkills[i]["img"],
+                                      mySkills[i].img,
                                       //fit: BoxFit.cover,
                                       width: 28.5.w,
                                       height: 47.h,
@@ -69,7 +69,7 @@ class MobileSkillsWidget extends StatelessWidget {
                                       alignment: Alignment.centerLeft,
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        mySkills[i]["title"],
+                                        mySkills[i].title,
                                         style: TextStyle(fontSize: 13.sp),
                                       ),
                                     ),
