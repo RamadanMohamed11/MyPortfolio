@@ -75,7 +75,7 @@ class HiMessageMobile extends StatelessWidget {
   }
 
   void getInTouchOnPressed() {
-    onNavMenuTap(0);
+    onNavMenuTap(4);
   }
 
   void downloadMyCvOnPressed() {

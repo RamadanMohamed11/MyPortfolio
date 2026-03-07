@@ -26,7 +26,7 @@ class _HeaderDesktopState extends State<HeaderDesktop> {
     final provider = context.watch<PortfolioProvider>();
 
     if (widget.isloaded) {
-      provider.setNavIndex(4);
+      provider.setNavIndex(0);
     }
 
     return Container(

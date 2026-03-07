@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 const List<String> headerItems = [
-  "Contact",
-  "About",
-  "Projects",
+  "Home",
   "Skills",
-  "Home"
+  "Projects",
+  "About",
+  "Contact"
 ];
 
 const List<IconData> headerIcons = [
-  Icons.quick_contacts_mail,
-  Icons.info_outline_rounded,
-  Icons.apps,
+  Icons.home,
   Icons.handyman_outlined,
-  Icons.home
+  Icons.apps,
+  Icons.info_outline_rounded,
+  Icons.quick_contacts_mail
 ];

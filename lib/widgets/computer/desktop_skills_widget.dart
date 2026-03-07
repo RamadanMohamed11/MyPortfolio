@@ -30,7 +30,7 @@ class _DesktopSkillsWidgetState extends State<DesktopSkillsWidget> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         padding: EdgeInsets.symmetric(vertical: 5.h),
-        key: widget.navBarKeys[3],
+        key: widget.navBarKeys[1],
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),

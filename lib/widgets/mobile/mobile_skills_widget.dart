@@ -26,7 +26,7 @@ class MobileSkillsWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 2.w),
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              key: navBarKeys[3],
+              key: navBarKeys[1],
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),

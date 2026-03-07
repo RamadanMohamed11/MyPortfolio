@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/models/projects_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectDetailPageDesktop extends StatelessWidget {
   final Project project;
+  final bool isTablet;
 
-  const ProjectDetailPageDesktop({super.key, required this.project});
+  const ProjectDetailPageDesktop(
+      {super.key, required this.project, this.isTablet = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class ProjectDetailPageDesktop extends StatelessWidget {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back,
                     color: CustomColor.myYellow, size: 10.sp),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => context.go('/home'),
               ),
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
@@ -63,7 +66,8 @@ class ProjectDetailPageDesktop extends StatelessWidget {
             // Content
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 70.w, vertical: 28.h),
+                padding: EdgeInsets.symmetric(
+                    horizontal: isTablet ? 30.w : 70.w, vertical: 28.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

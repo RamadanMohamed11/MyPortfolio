@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/models/projects_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,8 +22,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
             expandedHeight: 250.h,
             backgroundColor: CustomColor.bgLighter1,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: CustomColor.myYellow, size: 24.sp),
-              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back,
+                  color: CustomColor.myYellow, size: 24.sp),
+              onPressed: () => context.go('/home'),
             ),
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
@@ -56,7 +58,7 @@ class ProjectDetailPageMobile extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Content
           SliverToBoxAdapter(
             child: Padding(
@@ -76,9 +78,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  
+
                   SizedBox(height: 25.h),
-                  
+
                   // Featured Project Image
                   Center(
                     child: Container(
@@ -106,9 +108,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  
+
                   SizedBox(height: 25.h),
-                  
+
                   // The Problem
                   if (project.problem.isNotEmpty)
                     _buildSection(
@@ -123,9 +125,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         ),
                       ),
                     ),
-                  
+
                   if (project.problem.isNotEmpty) SizedBox(height: 25.h),
-                  
+
                   // The Solution
                   if (project.solution.isNotEmpty)
                     _buildSection(
@@ -140,9 +142,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         ),
                       ),
                     ),
-                  
+
                   if (project.solution.isNotEmpty) SizedBox(height: 25.h),
-                  
+
                   // Tech Stack & Justification
                   if (project.techStack.isNotEmpty)
                     _buildSection(
@@ -173,7 +175,8 @@ class ProjectDetailPageMobile extends StatelessWidget {
                                         margin: EdgeInsets.only(right: 12.w),
                                         decoration: BoxDecoration(
                                           color: CustomColor.bgLighter1,
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         padding: EdgeInsets.all(6.sp),
                                         child: Image.asset(
@@ -208,11 +211,12 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         }).toList(),
                       ),
                     ),
-                  
+
                   if (project.techStack.isNotEmpty) SizedBox(height: 25.h),
-                  
+
                   // Challenges & Lessons Learned
-                  if (project.challenges.isNotEmpty || project.lessonsLearned.isNotEmpty)
+                  if (project.challenges.isNotEmpty ||
+                      project.lessonsLearned.isNotEmpty)
                     _buildSection(
                       title: "Challenges & Lessons Learned",
                       icon: Icons.school_rounded,
@@ -238,7 +242,8 @@ class ProjectDetailPageMobile extends StatelessWidget {
                               ),
                             ),
                           ],
-                          if (project.challenges.isNotEmpty && project.lessonsLearned.isNotEmpty)
+                          if (project.challenges.isNotEmpty &&
+                              project.lessonsLearned.isNotEmpty)
                             SizedBox(height: 15.h),
                           if (project.lessonsLearned.isNotEmpty) ...[
                             Text(
@@ -262,10 +267,11 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         ],
                       ),
                     ),
-                  
-                  if (project.challenges.isNotEmpty || project.lessonsLearned.isNotEmpty)
+
+                  if (project.challenges.isNotEmpty ||
+                      project.lessonsLearned.isNotEmpty)
                     SizedBox(height: 25.h),
-                  
+
                   // Screenshots Gallery
                   if (project.screenshots.isNotEmpty)
                     _buildSection(
@@ -292,9 +298,9 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         },
                       ),
                     ),
-                  
+
                   if (project.screenshots.isNotEmpty) SizedBox(height: 25.h),
-                  
+
                   // Action Buttons
                   Column(
                     children: [
@@ -323,7 +329,8 @@ class ProjectDetailPageMobile extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (project.gitHubLink.isNotEmpty && project.applicationLink.isNotEmpty)
+                      if (project.gitHubLink.isNotEmpty &&
+                          project.applicationLink.isNotEmpty)
                         SizedBox(height: 12.h),
                       if (project.applicationLink.isNotEmpty)
                         SizedBox(
@@ -342,7 +349,8 @@ class ProjectDetailPageMobile extends StatelessWidget {
                             ),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: CustomColor.myYellow,
-                              side: BorderSide(color: CustomColor.myYellow, width: 2),
+                              side: const BorderSide(
+                                  color: CustomColor.myYellow, width: 2),
                               padding: EdgeInsets.symmetric(vertical: 15.h),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -352,7 +360,7 @@ class ProjectDetailPageMobile extends StatelessWidget {
                         ),
                     ],
                   ),
-                  
+
                   SizedBox(height: 40.h),
                 ],
               ),

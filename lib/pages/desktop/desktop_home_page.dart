@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:my_portfolio/constants/colors.dart';
+import 'package:my_portfolio/constants/header_list_items.dart';
 import 'package:my_portfolio/constants/projects_model_info.dart';
 import 'package:my_portfolio/constants/social_media.dart';
 import 'package:my_portfolio/providers/portfolio_provider.dart';
+import 'package:my_portfolio/utils/url_launcher.dart' as url_launcher_util;
 import 'package:my_portfolio/widgets/computer/about_desktop.dart';
 import 'package:my_portfolio/widgets/computer/desktop_contact_widget.dart';
 import 'package:my_portfolio/widgets/computer/desktop_skills_widget.dart';
@@ -19,11 +23,13 @@ import 'package:my_portfolio/widgets/shared/loading_indicator_widget.dart';
 import 'package:my_portfolio/widgets/shared/project_card_content.dart';
 import 'package:my_portfolio/widgets/shared/social_media_row.dart';
 import 'package:my_portfolio/widgets/shared/footer_section.dart';
+import 'package:my_portfolio/widgets/welcome_message.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ComputerHomePage extends StatefulWidget {
-  const ComputerHomePage({super.key});
+  final bool isTablet;
+  const ComputerHomePage({super.key, this.isTablet = false});
 
   @override
   State<ComputerHomePage> createState() => _ComputerHomePageState();
@@ -37,10 +43,31 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
     for (int i = 0; i <= myProjects.length; i++) 1.0
   ];
   bool _isFlutterProjectsVisible = false;
+  bool _showBackToTop = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final myScrollController = ScrollController();
   final List<GlobalKey> navBarKeys = List.generate(5, (index) => GlobalKey());
+
+  @override
+  void initState() {
+    super.initState();
+    myScrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    myScrollController.removeListener(_onScroll);
+    myScrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final show = myScrollController.offset > 300;
+    if (show != _showBackToTop) {
+      setState(() => _showBackToTop = show);
+    }
+  }
 
   void onNavItemTap(int navIndex) {
     final GlobalKey key = navBarKeys[navIndex];
@@ -90,17 +117,43 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: CustomColor.scaffoldColor,
+      drawer: widget.isTablet ? _buildTabletDrawer(provider) : null,
+      floatingActionButton: AnimatedSlide(
+        duration: const Duration(milliseconds: 300),
+        offset: _showBackToTop ? Offset.zero : const Offset(0, 2),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 300),
+          opacity: _showBackToTop ? 1.0 : 0.0,
+          child: FloatingActionButton(
+            mini: widget.isTablet,
+            backgroundColor: CustomColor.myYellow,
+            foregroundColor: Colors.black,
+            tooltip: 'Back to top',
+            onPressed: () {
+              myScrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: const Icon(Icons.keyboard_arrow_up),
+          ),
+        ),
+      ),
       body: CustomScrollView(
         controller: myScrollController,
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
+            automaticallyImplyLeading: false,
             surfaceTintColor: CustomColor.scaffoldColor,
             backgroundColor: CustomColor.scaffoldColor,
-            title: HeaderDesktop(
-              onNavMenuTap: onNavItemTap,
-              isloaded: provider.isLoading,
-            ),
+            title: widget.isTablet
+                ? _buildTabletHeader()
+                : HeaderDesktop(
+                    onNavMenuTap: onNavItemTap,
+                    isloaded: provider.isLoading,
+                  ),
           ),
           SliverToBoxAdapter(
             child: VisibilityDetector(
@@ -109,7 +162,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                 if (info.visibleFraction > 0.5) {
                   await Future.delayed(const Duration(milliseconds: 800));
                   if (info.visibleFraction > 0.5) {
-                    provider.setNavIndex(4);
+                    provider.setNavIndex(0);
                   }
                 }
               },
@@ -117,7 +170,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                 children: [
                   SizedBox(height: 10.h),
                   HiMessageDesktop(
-                    key: navBarKeys[4],
+                    key: navBarKeys[0],
                     onNavMenuTap: onNavItemTap,
                   ),
                   const ExpInfoDesktop()
@@ -141,7 +194,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                     if (info.visibleFraction > 0.5) {
                       await Future.delayed(const Duration(milliseconds: 500));
                       if (info.visibleFraction > 0.5) {
-                        provider.setNavIndex(3);
+                        provider.setNavIndex(1);
                       }
                     }
                   },
@@ -246,6 +299,12 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                                                             15),
                                                     child: HoverCard(
                                                       hoverScale: 1.03,
+                                                      semanticLabel:
+                                                          '${myProjects[i].title} project card',
+                                                      onActivate: () {
+                                                        context.go(
+                                                            '/projects/${myProjects[i].slug}');
+                                                      },
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
@@ -375,14 +434,14 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                 if (info.visibleFraction > 0.5) {
                   await Future.delayed(const Duration(milliseconds: 800));
                   if (info.visibleFraction > 0.5) {
-                    provider.setNavIndex(1);
+                    provider.setNavIndex(3);
                   }
                 }
               },
               child: Column(
                 children: [
                   SizedBox(height: 50.h),
-                  AboutDesktop(key: navBarKeys[1]),
+                  AboutDesktop(key: navBarKeys[3]),
                   SizedBox(height: 50.h),
                 ],
               ),
@@ -399,7 +458,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                   if (info.visibleFraction > 0.5) {
                     await Future.delayed(const Duration(milliseconds: 800));
                     if (info.visibleFraction > 0.5) {
-                      provider.setNavIndex(0);
+                      provider.setNavIndex(4);
                     }
                   }
                 },
@@ -407,7 +466,7 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.h),
-                      key: navBarKeys.first,
+                      key: navBarKeys[4],
                       width: double.infinity,
                       decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -453,6 +512,110 @@ class _ComputerHomePageState extends State<ComputerHomePage> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tablet-specific helpers
+  // ---------------------------------------------------------------------------
+
+  /// Compact header for tablet: shows Welcome + Embedded System link + hamburger.
+  /// Nav items move into the drawer instead of crowding the header row.
+  Widget _buildTabletHeader() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.all(0.5.sp),
+      padding: EdgeInsets.all(2.5.sp),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [
+          CustomColor.mainSectionColor,
+          Color.fromARGB(255, 11, 97, 172),
+        ]),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          const WelcomeMessage(isDesktop: true),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: InkWell(
+              onTap: () => url_launcher_util.launch(
+                  'http://ramadan-mohamed-electrical-portfolio.netlify.app'),
+              child: Shimmer.fromColors(
+                baseColor: CustomColor.myYellow,
+                highlightColor: Colors.white,
+                period: const Duration(milliseconds: 1500),
+                child: Text(
+                  'Embedded System Portfolio',
+                  style: TextStyle(
+                    color: CustomColor.myYellow,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 8.sp,
+                    fontFamily: 'Caveat',
+                  ),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.menu, color: Colors.white, size: 8.sp),
+            onPressed: () => scaffoldKey.currentState?.openDrawer(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Navigation drawer shown on tablet-width screens.
+  Widget _buildTabletDrawer(PortfolioProvider provider) {
+    return Drawer(
+      backgroundColor: CustomColor.scaffoldColor,
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+              child: Text(
+                'Navigation',
+                style: TextStyle(
+                  fontSize: 7.sp,
+                  fontWeight: FontWeight.bold,
+                  color: CustomColor.myYellow,
+                ),
+              ),
+            ),
+            const Divider(color: CustomColor.bgLighter2),
+            for (int i = 0; i < headerItems.length; i++)
+              ListTile(
+                leading: Icon(
+                  headerIcons[i],
+                  color: i == provider.navIndex
+                      ? CustomColor.myYellow
+                      : Colors.white60,
+                  size: 7.sp,
+                ),
+                title: Text(
+                  headerItems[i],
+                  style: TextStyle(
+                    fontSize: 5.5.sp,
+                    fontWeight: i == provider.navIndex
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    color: i == provider.navIndex
+                        ? CustomColor.myYellow
+                        : Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  scaffoldKey.currentState?.closeDrawer();
+                  onNavItemTap(i);
+                  provider.setNavIndex(i);
+                },
+              ),
+          ],
+        ),
       ),
     );
   }

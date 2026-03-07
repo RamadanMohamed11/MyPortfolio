@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:my_portfolio/constants/colors.dart';
 import 'package:my_portfolio/constants/header_list_items.dart';
@@ -20,7 +21,6 @@ import 'package:my_portfolio/widgets/shared/loading_indicator_widget.dart';
 import 'package:my_portfolio/widgets/shared/project_card_content.dart';
 import 'package:my_portfolio/widgets/shared/social_media_row.dart';
 import 'package:my_portfolio/widgets/shared/footer_section.dart';
-import 'package:my_portfolio/pages/mobile/project_detail_page_mobile.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -34,6 +34,7 @@ class MobileHomePage extends StatefulWidget {
 
 class _MobileHomePageState extends State<MobileHomePage> {
   bool _isFlutterProjectsVisible = false;
+  bool _showBackToTop = false;
 
   ButtonState stateOnlyText = ButtonState.idle;
   ButtonState stateTextWithIcon = ButtonState.idle;
@@ -41,6 +42,26 @@ class _MobileHomePageState extends State<MobileHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final myScrollController = ScrollController();
   final List<GlobalKey> navBarKeys = List.generate(5, (index) => GlobalKey());
+
+  @override
+  void initState() {
+    super.initState();
+    myScrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    myScrollController.removeListener(_onScroll);
+    myScrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final show = myScrollController.offset > 300;
+    if (show != _showBackToTop) {
+      setState(() => _showBackToTop = show);
+    }
+  }
 
   void onMenuTap() {
     scaffoldKey.currentState?.openEndDrawer();
@@ -60,6 +81,27 @@ class _MobileHomePageState extends State<MobileHomePage> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: CustomColor.scaffoldColor,
+      floatingActionButton: AnimatedSlide(
+        duration: const Duration(milliseconds: 300),
+        offset: _showBackToTop ? Offset.zero : const Offset(0, 2),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 300),
+          opacity: _showBackToTop ? 1.0 : 0.0,
+          child: FloatingActionButton.small(
+            backgroundColor: CustomColor.myYellow,
+            foregroundColor: Colors.black,
+            tooltip: 'Back to top',
+            onPressed: () {
+              myScrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: const Icon(Icons.keyboard_arrow_up),
+          ),
+        ),
+      ),
       drawer: ClipPath(
         clipper: OvalRightBorderClipper(),
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -75,7 +117,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const AccountInfo(),
-                for (int i = headerItems.length - 1; i >= 0; i--)
+                for (int i = 0; i < headerItems.length; i++)
                   Column(
                     children: [
                       ListTile(
@@ -123,7 +165,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
             child: Column(
               children: [
                 SizedBox(height: 10.h),
-                HiMessageMobile(key: navBarKeys[4], onNavMenuTap: onNavItemTap),
+                HiMessageMobile(key: navBarKeys[0], onNavMenuTap: onNavItemTap),
                 const ExpInfoMobile(),
                 SizedBox(height: 50.h),
               ],
@@ -210,49 +252,30 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(15),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ProjectDetailPageMobile(
-                                                            project:
-                                                                myProjects[i],
-                                                          ),
-                                                        ),
-                                                      ).then((_) {
-                                                        if (!mounted) return;
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                          onNavItemTap(2);
-                                                        });
-                                                      });
+                                                  child: HoverCard(
+                                                    hoverScale: 1.03,
+                                                    semanticLabel:
+                                                        '${myProjects[i].title} project card',
+                                                    onActivate: () {
+                                                      context.go(
+                                                          '/projects/${myProjects[i].slug}');
                                                     },
-                                                    child: HoverCard(
-                                                      hoverScale: 1.03,
-                                                      child: Container(
-                                                        width: 210.w,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16),
-                                                            color: CustomColor
-                                                                .bgLighter2),
-                                                        child:
-                                                            ProjectCardContent(
-                                                          project:
-                                                              myProjects[i],
-                                                          titleFontSize:
-                                                              15.5.sp,
-                                                          subtitleFontSize:
-                                                              13.5.sp,
-                                                          linkFontSize: 18.sp,
-                                                          iconSize: 10.5.sp,
-                                                          useFlexLayout: true,
-                                                        ),
+                                                    child: Container(
+                                                      width: 210.w,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(16),
+                                                          color: CustomColor
+                                                              .bgLighter2),
+                                                      child: ProjectCardContent(
+                                                        project: myProjects[i],
+                                                        titleFontSize: 15.5.sp,
+                                                        subtitleFontSize:
+                                                            13.5.sp,
+                                                        linkFontSize: 18.sp,
+                                                        iconSize: 10.5.sp,
+                                                        useFlexLayout: true,
                                                       ),
                                                     ),
                                                   ),
@@ -278,7 +301,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
             child: Column(
               children: [
                 SizedBox(height: 50.h),
-                AboutMobile(key: navBarKeys[1]),
+                AboutMobile(key: navBarKeys[3]),
                 SizedBox(height: 50.h),
               ],
             ),
@@ -292,7 +315,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
-                    key: navBarKeys.first,
+                    key: navBarKeys[4],
                     width: double.infinity,
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(

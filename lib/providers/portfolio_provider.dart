@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// - **contact-form controllers**: name, email, message
 class PortfolioProvider extends ChangeNotifier {
   // ── Navigation ──────────────────────────────────────────────────
-  int _navIndex = 4;
+  int _navIndex = 0;
   int get navIndex => _navIndex;
   void setNavIndex(int index) {
     if (_navIndex != index) {
